@@ -2,6 +2,7 @@
 
 its a simple todo list with use of formik to handle form errors.
 
+![Alt text](src/assets/test.png)
 
 # React + TypeScript + Vite
 
