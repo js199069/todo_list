@@ -16,14 +16,14 @@ function Form({ todos, setTodos }: { todos: any, setTodos: any }) {
     const formik = useFormik({
         initialValues: {
             title: '',
-            id: self.crypto.randomUUID(),
+            id: null,
             is_completed: false,
         },
         validate,
         onSubmit: async (values, actions) => {
             const newTodo = {
                 title: values.title,
-                id: values.id,
+                id: self.crypto.randomUUID(),
                 is_completed: values.is_completed,
             };
 
