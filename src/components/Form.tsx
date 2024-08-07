@@ -20,7 +20,7 @@ function Form({ todos, setTodos }: { todos: any, setTodos: any }) {
             is_completed: false,
         },
         validate,
-        onSubmit: values => {
+        onSubmit: async (values, actions) => {
             const newTodo = {
                 title: values.title,
                 id: values.id,
@@ -35,6 +35,7 @@ function Form({ todos, setTodos }: { todos: any, setTodos: any }) {
             localStorage.setItem("todos", updatedTodoList);
 
             alert(JSON.stringify(values, null, 2));
+            actions.resetForm();
         },
     });
 

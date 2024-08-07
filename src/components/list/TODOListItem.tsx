@@ -98,8 +98,8 @@ function TODOListItem({ item, todos, setTodos }: { item: any, todos: any, setTod
                             xmlns="http://www.w3.org/2000/svg"
                             width={34}
                             height={34}
-                            stroke="#22C55E"
-                            fill={item.is_completed ? "#22C55E" : "#0d0d0d"}
+                            stroke="#33ab6f"
+                            fill={item.is_completed ? "#33ab6f" : "#fff"}
                         >
                             <circle cx="11.998" cy="11.998" fillRule="nonzero" r="9.998" />
                         </svg>
