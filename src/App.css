@@ -171,3 +171,7 @@ header {
 .todo_items_right button svg {
   fill: #c2b39a;
 }
+
+.error_msg{
+    color: red;
+}

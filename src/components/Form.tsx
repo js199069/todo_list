@@ -1,44 +1,59 @@
+import { useFormik } from "formik";
+
 function Form({ todos, setTodos }: { todos: any, setTodos: any }) {
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
 
-        const value = event.target.todo.value;
-
-        if(value.length < 3){
-            
-            return false;
+    const validate = (values: any) => {
+        const errors: any = {};
+        if (!values.title) {
+            errors.title = 'Required';
+        } else if (values.title.length < 3) {
+            errors.title = 'Must be 3 characters or more';
         }
-        
 
-        const newTodo = {
-            title: value,
-            id: self.crypto.randomUUID(),
-            is_completed: false,
-        };
-
-        // Update todo state
-        setTodos((prevTodos: any) => [...prevTodos, newTodo]);
-
-        // Store updated todo list in local storage
-        const updatedTodoList = JSON.stringify([...todos, newTodo]);
-        localStorage.setItem("todos", updatedTodoList);
-
-        event.target.reset();
+        return errors;
     };
 
+    const formik = useFormik({
+        initialValues: {
+            title: '',
+            id: self.crypto.randomUUID(),
+            is_completed: false,
+        },
+        validate,
+        onSubmit: values => {
+            const newTodo = {
+                title: values.title,
+                id: values.id,
+                is_completed: values.is_completed,
+            };
+
+            // Update todo state
+            setTodos((prevTodos: any) => [...prevTodos, newTodo]);
+
+            // Store updated todo list in local storage
+            const updatedTodoList = JSON.stringify([...todos, newTodo]);
+            localStorage.setItem("todos", updatedTodoList);
+
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
+
     return (
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={formik.handleSubmit}>
             <label htmlFor="todo">
                 <input
                     type="text"
-                    name="todo"
+                    name="title"
                     id="todo"
                     placeholder="Write your next task"
+                    onChange={formik.handleChange}
+                    value={formik.values.title}
                 />
+                {formik.errors.title ? <div className="error_msg">{formik.errors.title}</div> : null}
             </label>
 
-            <button>
-                <span className="visually-hidden">Submit</span>
+            <button type="submit">
+                <span className="visually-hidden" >Submit</span>
                 <svg
                     clipRule="evenodd"
                     fillRule="evenodd"
